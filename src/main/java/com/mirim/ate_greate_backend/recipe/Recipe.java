@@ -104,5 +104,4 @@ public class Recipe {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
-
 }

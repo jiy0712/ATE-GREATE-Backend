@@ -1,26 +1,37 @@
 package com.mirim.ate_greate_backend.recipe;
 
 import com.mirim.ate_greate_backend.recipe.MealResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class RecipeService {
 
+    public List<Recipe> getMyRecipes(Long userId) {
+        return recipeRepository.findAllByUserId(userId);
+    }
     private final RecipeRepository recipeRepository;
-
     private final RestTemplate restTemplate = new RestTemplate();
+
+    @Value("${file.upload-dir}")
+    private String uploadDir;
 
     public RecipeService(RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
     }
 
     public MealResponse searchRecipeByName(String name) {
-        //외부 api 호출
+        // 외부 api 호출
         String url = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + name;
         return restTemplate.getForObject(url, MealResponse.class);
     }
@@ -50,4 +61,33 @@ public class RecipeService {
     public List<Recipe> getSavedRecipes() {
         return recipeRepository.findBySaveRecipeTrue();
     }
+
+    public Recipe registerMyRecipe(MyRecipeDto dto) throws IOException {
+        MultipartFile image = dto.getImage();
+
+        // 고유한 파일명 생성
+        String filename = UUID.randomUUID() + "_" + image.getOriginalFilename();
+        String filePath = uploadDir + File.separator + filename;
+
+        // 이미지 파일 저장
+        File dest = new File(filePath);
+        image.transferTo(dest);
+
+        // DB 저장
+        Recipe recipe = new Recipe();
+        recipe.setTitle(dto.getTitle());
+        recipe.setMaterial(dto.getMaterial());
+        recipe.setText(dto.getText());
+        recipe.setImgurl("/images/" + filename);
+        recipe.setClickRecipe(0);
+        recipe.setSaveRecipe(false);
+        recipe.setCreatedAt(LocalDateTime.now());
+
+        return recipeRepository.save(recipe);
+    }
+
+    public void deleteMyRecipe(Long recipeId) {
+        recipeRepository.deleteById(recipeId.intValue());
+    }
+
 }
