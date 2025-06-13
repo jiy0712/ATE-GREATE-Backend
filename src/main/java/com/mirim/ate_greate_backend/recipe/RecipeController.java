@@ -41,7 +41,7 @@ public class RecipeController {
     }
 
     // 재료명으로 검색
-    @GetMapping("/search")
+    @GetMapping("/searchMaterial")
     public List<Recipe> searchByMaterial(@RequestParam String keyword) {
         return recipeService.searchByMaterial(keyword);
     }
