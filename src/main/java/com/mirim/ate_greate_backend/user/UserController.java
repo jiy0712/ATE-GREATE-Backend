@@ -16,8 +16,8 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody User user) {
-        String token = userService.register(user);
-        return ResponseEntity.ok(token);
+        String message = userService.register(user);
+        return ResponseEntity.ok(message);
     }
 
     @PostMapping("/login")
