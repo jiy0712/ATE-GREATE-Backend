@@ -3,6 +3,7 @@ package com.mirim.ate_greate_backend.recipe;
 import com.mirim.ate_greate_backend.recipe.Recipe;
 import com.mirim.ate_greate_backend.recipe.RecipeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,4 +42,19 @@ public class MyRecipeController {
         return ResponseEntity.ok("나만의 레시피가 삭제되었습니다.");
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateMyRecipe(
+            @PathVariable Long id,
+            @RequestParam("title") String title,
+            @RequestParam("material") String material,
+            @RequestParam("text") String text,
+            @RequestParam(value = "image", required = false) MultipartFile image
+    ) {
+        try {
+            myRecipeService.updateMyRecipe(id, title, material, text, image);
+            return ResponseEntity.ok("레시피 수정 완료");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("레시피 수정 실패: " + e.getMessage());
+        }
+    }
 }

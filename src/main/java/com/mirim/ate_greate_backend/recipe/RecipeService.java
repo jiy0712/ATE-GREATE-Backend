@@ -9,9 +9,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Service
 @RequiredArgsConstructor
@@ -88,6 +92,27 @@ public class RecipeService {
 
     public void deleteMyRecipe(Long recipeId) {
         recipeRepository.deleteById(recipeId.intValue());
+    }
+
+    public void updateMyRecipe(Long recipeId, String title, String material, String text, MultipartFile image) throws IOException {
+        Recipe recipe = recipeRepository.findById(Math.toIntExact(recipeId))
+                .orElseThrow(() -> new IllegalArgumentException("해당 레시피가 존재하지 않습니다."));
+
+        recipe.setTitle(title);
+        recipe.setMaterial(material);
+        recipe.setText(text);
+
+        // 이미지가 새로 들어온 경우에만 저장 및 교체
+        if (image != null && !image.isEmpty()) {
+            String filename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+            Path filePath = Paths.get("images", filename);
+            Files.createDirectories(filePath.getParent()); // 폴더 없을 시 생성
+            Files.write(filePath, image.getBytes());
+
+            recipe.setImgurl("/images/" + filename);
+        }
+
+        recipeRepository.save(recipe);
     }
 
 }
