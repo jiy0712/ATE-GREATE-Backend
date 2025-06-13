@@ -115,4 +115,17 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
+    // 모든 레시피 (API + 나만의) 조회
+    public List<Recipe> getAllRecipes() {
+        return recipeRepository.findAll();
+    }
+
+    // 재료명으로 검색
+    public List<Recipe> searchByMaterial(String keyword) {
+        return recipeRepository.findByMaterialContaining(keyword);
+    }
+
+    public List<Recipe> getRecipesByCategory(String category) {
+        return recipeRepository.findByCategory(category);
+    }
 }

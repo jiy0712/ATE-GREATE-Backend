@@ -3,6 +3,7 @@ package com.mirim.ate_greate_backend.recipe;
 import com.mirim.ate_greate_backend.recipe.MealResponse;
 import com.mirim.ate_greate_backend.recipe.RecipeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -34,4 +35,24 @@ public class RecipeController {
     public List<Recipe> getPopularRecipes() {
         return recipeService.getPopularRecipes();
     }
+
+    // 전체 레시피 조회
+    @GetMapping
+    public List<Recipe> getAllRecipes() {
+        return recipeService.getAllRecipes();
+    }
+
+    // 재료명으로 검색
+    @GetMapping("/search")
+    public List<Recipe> searchByMaterial(@RequestParam String keyword) {
+        return recipeService.searchByMaterial(keyword);
+    }
+
+    // 한식 / 일식 / 중식 / 양식 나누기
+    @GetMapping("/category")
+    public ResponseEntity<List<Recipe>> getRecipesByCategory(@RequestParam String type) {
+        List<Recipe> recipes = recipeService.getRecipesByCategory(type.toUpperCase());
+        return ResponseEntity.ok(recipes);
+    }
+
 }

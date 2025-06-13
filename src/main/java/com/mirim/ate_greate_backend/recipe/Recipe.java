@@ -2,15 +2,16 @@ package com.mirim.ate_greate_backend.recipe;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "recipes")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "recipes")
 public class Recipe {
 
     @Id
@@ -33,12 +34,33 @@ public class Recipe {
 
     private Integer userId;
 
-    public String getTitle() {
-        return title;
-    }
+    private String category;
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void mapAreaToCategory(String areaFromApi) {
+        if (areaFromApi == null) {
+            this.category = "기타";
+            return;
+        }
+
+        switch (areaFromApi.toLowerCase()) {
+            case "korean":
+                this.category = "한식";
+                break;
+            case "chinese":
+                this.category = "중식";
+                break;
+            case "japanese":
+                this.category = "일식";
+                break;
+            case "italian":
+            case "french":
+            case "american":
+            case "british":
+                this.category = "양식";
+                break;
+            default:
+                this.category = "기타";
+        }
     }
 
     public Integer getId() {
@@ -47,6 +69,14 @@ public class Recipe {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getMaterial() {
@@ -103,5 +133,13 @@ public class Recipe {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
