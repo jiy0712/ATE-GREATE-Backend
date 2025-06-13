@@ -2,7 +2,6 @@ package com.mirim.ate_greate_backend.recipe;
 
 import com.mirim.ate_greate_backend.recipe.Recipe;
 import com.mirim.ate_greate_backend.recipe.RecipeService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,6 @@ import java.util.List;
 import com.mirim.ate_greate_backend.recipe.RecipeService;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/my-recipes")
 public class MyRecipeController {
     private final RecipeService recipeService;

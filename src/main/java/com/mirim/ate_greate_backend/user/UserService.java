@@ -3,12 +3,10 @@ package com.mirim.ate_greate_backend.user;
 import com.mirim.ate_greate_backend.user.User;
 import com.mirim.ate_greate_backend.user.UserRepository;
 import com.mirim.ate_greate_backend.jwt.JwtUtil;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;

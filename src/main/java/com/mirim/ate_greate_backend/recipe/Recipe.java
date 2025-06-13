@@ -1,16 +1,10 @@
 package com.mirim.ate_greate_backend.recipe;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(name = "recipes")
 public class Recipe {
 

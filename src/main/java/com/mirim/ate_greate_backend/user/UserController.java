@@ -2,14 +2,11 @@ package com.mirim.ate_greate_backend.user;
 
 import com.mirim.ate_greate_backend.user.User;
 import com.mirim.ate_greate_backend.user.UserService;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
-@RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
@@ -29,7 +26,6 @@ public class UserController {
         return ResponseEntity.ok(token);
     }
 
-    @Getter
     static class LoginRequest {
         private String id;
         private String password;

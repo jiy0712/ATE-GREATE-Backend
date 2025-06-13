@@ -3,7 +3,6 @@ package com.mirim.ate_greate_backend.config;
 import com.mirim.ate_greate_backend.jwt.JwtAuthenticationFilter;
 import com.mirim.ate_greate_backend.jwt.JwtUtil;
 import jakarta.servlet.Filter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,7 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@RequiredArgsConstructor
 public class Security {
 
     private final JwtUtil jwtUtil;

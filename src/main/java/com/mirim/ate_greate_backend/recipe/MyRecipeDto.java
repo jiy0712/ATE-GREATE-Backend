@@ -1,11 +1,7 @@
 package com.mirim.ate_greate_backend.recipe;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-@Getter
-@Setter
 public class MyRecipeDto {
     private String title;
     private String material;

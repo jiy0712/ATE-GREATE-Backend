@@ -1,7 +1,6 @@
 package com.mirim.ate_greate_backend.recipe;
 
 import com.mirim.ate_greate_backend.recipe.MealResponse;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,7 +17,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Service
-@RequiredArgsConstructor
 public class RecipeService {
 
     public List<Recipe> getMyRecipes(Long userId) {
