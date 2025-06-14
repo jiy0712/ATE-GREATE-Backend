@@ -1,7 +1,6 @@
 package com.mirim.ate_greate_backend.recipe;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,21 +11,36 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private String material;
 
+    @Column(nullable = false)
     private String text;
 
+    @Column(nullable = false)
     private String imgurl;
 
+    @Column(name = "click_recipe", nullable = false)
     private Integer clickRecipe = 0;
 
+    @Column(name = "save_recipe", nullable = false)
     private Boolean saveRecipe = false;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(name = "created_at", columnDefinition = "datetime default CURRENT_TIMESTAMP", nullable = false)
+    private LocalDateTime createdAt;
 
-    private Integer userId;
+    @PrePersist
+    public void prePersist() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
+
+    @Column(name = "user_id")
+    private Long userId;
 
     private String category;
 
@@ -121,11 +135,11 @@ public class Recipe {
         this.createdAt = createdAt;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

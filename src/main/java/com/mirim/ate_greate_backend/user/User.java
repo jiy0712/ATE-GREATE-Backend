@@ -14,7 +14,7 @@ public class User {
     private Long userId;
 
     @Column(nullable = false, length = 50)
-    private String id;
+    private String loginId;
 
     @Column(nullable = false, length = 100)
     private String password;
@@ -35,13 +35,8 @@ public class User {
         this.userId = userId;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    public String getLoginId() { return loginId; }
+    public void setLoginId(String loginId) { this.loginId = loginId; }
 
     public String getPassword() {
         return password;

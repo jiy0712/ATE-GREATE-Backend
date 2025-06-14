@@ -1,7 +1,5 @@
 package com.mirim.ate_greate_backend.user;
 
-import com.mirim.ate_greate_backend.user.User;
-import com.mirim.ate_greate_backend.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +19,29 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User loginRequest) {
-        String token = userService.login(loginRequest.getId(), loginRequest.getPassword());
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+        String token = userService.login(loginRequest.getLoginId(), loginRequest.getPassword());
         return ResponseEntity.ok(token);
     }
 
     static class LoginRequest {
-        private String id;
+        private String loginId;
         private String password;
+
+        public String getLoginId() {
+            return loginId;
+        }
+
+        public void setLoginId(String loginId) {
+            this.loginId = loginId;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
     }
 }
