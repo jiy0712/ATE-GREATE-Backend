@@ -44,4 +44,23 @@ public class UserService {
         // 토큰 발급
         return jwtUtil.generateToken(user.getLoginId());
     }
+
+    // 사용자 조회
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+    }
+
+    // 사용자 수정
+    public String updateUser(Long userId, User updatedUser) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+
+        user.setNickname(updatedUser.getNickname());
+        user.setBirthday(updatedUser.getBirthday());
+        user.setKeyword(updatedUser.getKeyword());
+        userRepository.save(user);
+
+        return "회원정보 수정 완료";
+    }
 }

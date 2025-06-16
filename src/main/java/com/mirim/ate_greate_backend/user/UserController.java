@@ -44,4 +44,18 @@ public class UserController {
             this.password = password;
         }
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getUser(@PathVariable Long userId) {
+        User user = userService.getUserById(userId);
+        return ResponseEntity.ok(user);
+    }
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<String> updateUser(
+            @PathVariable Long userId,
+            @RequestBody User updatedUser) {
+        String result = userService.updateUser(userId, updatedUser);
+        return ResponseEntity.ok(result);
+    }
 }
