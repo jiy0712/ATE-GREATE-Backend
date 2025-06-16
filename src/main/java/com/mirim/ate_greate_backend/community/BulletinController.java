@@ -25,4 +25,20 @@ public class BulletinController {
     public ResponseEntity<List<Bulletin>> getAllBulletins() {
         return ResponseEntity.ok(bulletinService.getAllBulletins());
     }
+
+    @PatchMapping("/{id}/good")
+    public ResponseEntity<Bulletin> increaseGood(@PathVariable Long id) {
+        return ResponseEntity.ok(bulletinService.increaseGood(id));
+    }
+
+    @PatchMapping("/{id}/bad")
+    public ResponseEntity<Bulletin> increaseBad(@PathVariable Long id) {
+        return ResponseEntity.ok(bulletinService.increaseBad(id));
+    }
+
+    @PatchMapping("/{id}/click")
+    public ResponseEntity<Bulletin> increaseClick(@PathVariable Long id) {
+        return ResponseEntity.ok(bulletinService.increaseClick(id));
+    }
+
 }

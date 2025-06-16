@@ -26,4 +26,28 @@ public class BulletinService {
     public List<Bulletin> getAllBulletins() {
         return bulletinRepository.findAll();
     }
+
+    public Bulletin increaseGood(Long id) {
+        Bulletin bulletin = getBulletinOrThrow(id);
+        bulletin.setGood(bulletin.getGood() + 1);
+        return bulletinRepository.save(bulletin);
+    }
+
+    public Bulletin increaseBad(Long id) {
+        Bulletin bulletin = getBulletinOrThrow(id);
+        bulletin.setBad(bulletin.getBad() + 1);
+        return bulletinRepository.save(bulletin);
+    }
+
+    public Bulletin increaseClick(Long id) {
+        Bulletin bulletin = getBulletinOrThrow(id);
+        bulletin.setClick(bulletin.getClick() + 1);
+        return bulletinRepository.save(bulletin);
+    }
+
+    private Bulletin getBulletinOrThrow(Long id) {
+        return bulletinRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("게시물을 찾을 수 없습니다."));
+    }
+
 }
