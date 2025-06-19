@@ -1,18 +1,15 @@
 package com.mirim.ate_greate_backend.user;
 
-import com.mirim.ate_greate_backend.jwt.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, JwtUtil jwtUtil, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.jwtUtil = jwtUtil;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -40,9 +37,7 @@ public class UserService {
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
-
-        // 토큰 발급
-        return jwtUtil.generateToken(user.getLoginId());
+        return loginId;
     }
 
     // 사용자 조회
