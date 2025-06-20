@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
     @Column(nullable = false, length = 50)
     private String loginId;
@@ -28,11 +28,11 @@ public class User {
     private String keyword;
 
     public Long getUserId() {
-        return userId;
+        return id;
     }
 
     public void setUserId(Long userId) {
-        this.userId = userId;
+        this.id = userId;
     }
 
     public String getLoginId() { return loginId; }
