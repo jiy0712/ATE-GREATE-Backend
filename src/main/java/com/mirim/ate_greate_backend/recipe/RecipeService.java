@@ -1,5 +1,6 @@
 package com.mirim.ate_greate_backend.recipe;
 
+import com.mirim.ate_greate_backend.material.Material;
 import com.mirim.ate_greate_backend.recipe.MealResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -63,7 +64,6 @@ public class RecipeService {
     public List<Recipe> getSavedRecipes() {
         return recipeRepository.findBySaveRecipeTrue();
     }
-
     public Recipe registerMyRecipe(MyRecipeDto dto) throws IOException {
         MultipartFile image = dto.getImage();
 
